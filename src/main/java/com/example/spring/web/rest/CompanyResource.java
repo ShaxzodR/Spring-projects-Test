@@ -24,8 +24,10 @@ public class CompanyResource {
     @PutMapping("/update")
     public ResponseEntity<?> update(@RequestBody ReqCompany reqCompany){
         String response = companyService.updateCompany(reqCompany);
+        System.out.println("Text");
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/all")
     public ResponseEntity<?> all(){
         List<Company> companies = companyService.getAllCompany();
