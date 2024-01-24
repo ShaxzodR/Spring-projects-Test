@@ -1,6 +1,7 @@
 package com.example.spring.service;
 
 import com.example.spring.domain.Task;
+import com.example.spring.domain.enumation.Status;
 import com.example.spring.domain.request.ReqTask;
 import com.example.spring.repository.TasksRepository;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class TaskService {
         try {
             Task tasks = new Task();
             tasks.setName(reqTask.getName());
+            tasks.setDeadline(reqTask.getDeadline());
             tasksRepository.save(tasks);
             return "Muvoffaqiyatli saqlandi!";
         } catch (Exception e){
@@ -33,6 +35,7 @@ public class TaskService {
             Task tasks = new Task();
             tasks.setId(reqTask.getId());
             tasks.setName(reqTask.getName());
+            tasks.setDeadline(reqTask.getDeadline());
             tasksRepository.save(tasks);
             return "Muvoffaqiyatli uzgartirildi!";
         } catch (Exception e){

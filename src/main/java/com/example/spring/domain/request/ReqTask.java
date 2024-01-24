@@ -1,12 +1,18 @@
 package com.example.spring.domain.request;
 
+import java.util.Date;
+
 public class ReqTask {
     private Long id;
     private String name;
+    private Long deadline;
 
-    public ReqTask(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public Long getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Long deadline) {
+        this.deadline = deadline;
     }
 
     public Long getId() {
@@ -24,4 +30,5 @@ public class ReqTask {
     public void setName(String name) {
         this.name = name;
     }
+
 }
