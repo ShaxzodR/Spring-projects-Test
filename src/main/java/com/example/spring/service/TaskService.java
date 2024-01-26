@@ -1,6 +1,7 @@
 package com.example.spring.service;
 
 import com.example.spring.domain.Task;
+import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.enumation.Status;
 import com.example.spring.domain.request.ReqTask;
 import com.example.spring.repository.TasksRepository;
@@ -23,6 +24,8 @@ public class TaskService {
             Task tasks = new Task();
             tasks.setName(reqTask.getName());
             tasks.setDeadline(reqTask.getDeadline());
+            tasks.setStatus(Status.ACTIVE);
+            tasks.setPosition(Position.JUNIOR);
             tasksRepository.save(tasks);
             return "Muvoffaqiyatli saqlandi!";
         } catch (Exception e){

@@ -1,5 +1,6 @@
 package com.example.spring.domain;
 
+import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.enumation.Status;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,21 +19,33 @@ public class Task implements Serializable {
 
     @Column(name = "name")
     private String name;
+
+    @Enumerated
+    private Position position;
     @Column(name = "status")
     @Enumerated
     private Status status;
+    @Column(name = "assigned_user_id")
+    private Long assignedUserId;
 
     @Column(name = "deadline")
     private Long deadline;
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    public Long getAssignedUserId() {
+        return assignedUserId;
+    }
+
+    public void setAssignedUserId(Long assignedUserId) {
+        this.assignedUserId = assignedUserId;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -80,5 +93,13 @@ public class Task implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
