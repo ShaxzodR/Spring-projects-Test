@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -20,16 +21,13 @@ public class Task implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Position position;
-    @Column(name = "status")
-    @Enumerated
-    private Status status;
-    @Column(name = "assigned_user_id")
-    private Long assignedUserId;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
     @Column(name = "deadline")
-    private Long deadline;
+    private LocalDateTime deadline;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
@@ -38,16 +36,45 @@ public class Task implements Serializable {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    public Long getAssignedUserId() {
-        return assignedUserId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAssignedUserId(Long assignedUserId) {
-        this.assignedUserId = assignedUserId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public Status getStatus() {
         return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
     }
 
     public Date getCreatedAt() {
@@ -62,44 +89,7 @@ public class Task implements Serializable {
         return updatedAt;
     }
 
-    public Long getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Long deadline) {
-        this.deadline = deadline;
-    }
-
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 }

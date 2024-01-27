@@ -1,11 +1,12 @@
 package com.example.spring.domain.request;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ReqTask {
     private Long id;
     private String name;
-    private Long deadline;
+    private LocalDateTime deadline;
 
     private String status;
     private String position;
@@ -26,11 +27,11 @@ public class ReqTask {
         this.status = status;
     }
 
-    public Long getDeadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Long deadline) {
+    public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
 

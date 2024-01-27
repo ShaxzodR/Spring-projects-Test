@@ -39,6 +39,8 @@ public class TaskService {
             tasks.setId(reqTask.getId());
             tasks.setName(reqTask.getName());
             tasks.setDeadline(reqTask.getDeadline());
+            tasks.setStatus(Status.ACTIVE);
+            tasks.setPosition(Position.JUNIOR);
             tasksRepository.save(tasks);
             return "Muvoffaqiyatli uzgartirildi!";
         } catch (Exception e){

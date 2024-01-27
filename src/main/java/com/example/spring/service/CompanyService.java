@@ -23,8 +23,8 @@ public class CompanyService {
     public String createCompany(ReqCompany reqCompany) {
         try {
             Company company = new Company();
+            company.setId(reqCompany.getId());
             company.setName(reqCompany.getName());
-            company.setAddress(reqCompany.getAddress());
             company.setArea(areaRep.getReferenceById(reqCompany.getAreaId()));
             companyRepository.save(company);
             return "Muvoffaqiyatli saqlandi!";
@@ -39,7 +39,6 @@ public class CompanyService {
             Company company = new Company();
             company.setId(reqCompany.getId());
             company.setName(reqCompany.getName());
-            company.setAddress(reqCompany.getAddress());
             company.setArea(areaRep.getReferenceById(reqCompany.getAreaId()));
             companyRepository.save(company);
             return "Muvoffaqiyatli uzgartirildi!";
