@@ -21,9 +21,24 @@ public class TaskEmployeeResource {
         String response = taskEmployeeService.create(reqTaskEmployee);
         return ResponseEntity.ok(response);
     }
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestBody ReqTaskEmployee reqTaskEmployee){
+        String response = taskEmployeeService.update(reqTaskEmployee);
+        return ResponseEntity.ok(response);
+    }
     @GetMapping("/all")
     public ResponseEntity<?> all(){
         List<TaskEmployee> all = taskEmployeeService.all();
         return ResponseEntity.ok(all);
+    }
+    @GetMapping("/by-id/{id}")
+    public ResponseEntity<?> byId(@PathVariable Long id){
+        TaskEmployee taskEmployee = taskEmployeeService.byId(id);
+        return ResponseEntity.ok(taskEmployee);
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        taskEmployeeService.delete(id);
+        return ResponseEntity.ok("O'chirildi");
     }
 }

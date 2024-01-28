@@ -8,6 +8,7 @@ import com.example.spring.repository.TasksRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskEmployeeService {
@@ -33,7 +34,28 @@ public class TaskEmployeeService {
             return "xatolik";
         }
     }
+    public String update(ReqTaskEmployee reqTaskEmployee){
+        try {
+            TaskEmployee taskEmployee = new TaskEmployee();
+            taskEmployee.setId(reqTaskEmployee.getId());
+            taskEmployee.setTask(tasksRepository.getReferenceById(reqTaskEmployee.getTaskId()));
+            taskEmployee.setEmployee(employeeRepository.getReferenceById(reqTaskEmployee.getEmployeeId()));
+            taskEmployeeRepository.save(taskEmployee);
+            return "Muvaffaqiyatli saqlandi";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "xatolik";
+        }
+    }
     public List<TaskEmployee> all(){
         return taskEmployeeRepository.findAll();
+    }
+    public TaskEmployee byId(Long id){
+        Optional<TaskEmployee> taskEmployee = taskEmployeeRepository.findById(id);
+        return taskEmployee.orElseGet(TaskEmployee::new);
+    }
+    public void delete(Long id){
+        TaskEmployee taskEmployee =taskEmployeeRepository.getReferenceById(id);
+        taskEmployeeRepository.delete(taskEmployee);
     }
 }
