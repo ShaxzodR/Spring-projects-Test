@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "Region")
-public class Region implements Serializable {
+public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -2,7 +2,7 @@ package com.example.spring.web.rest;
 
 import com.example.spring.domain.Region;
 import com.example.spring.domain.request.ReqRegion;
-import com.example.spring.service.RegionService;
+import com.example.spring.service.impl.RegionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

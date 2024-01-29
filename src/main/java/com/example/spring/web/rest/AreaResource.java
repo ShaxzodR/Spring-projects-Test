@@ -1,9 +1,8 @@
 package com.example.spring.web.rest;
 
 import com.example.spring.domain.Area;
-import com.example.spring.domain.District;
 import com.example.spring.domain.request.ReqArea;
-import com.example.spring.service.AreaService;
+import com.example.spring.service.impl.AreaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

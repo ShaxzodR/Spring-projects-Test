@@ -2,6 +2,7 @@ package com.example.spring.web.rest;
 
 import com.example.spring.domain.Employee;
 import com.example.spring.domain.request.ReqEmployee;
+import com.example.spring.service.impl.EmployeeServiceImpl;
 import com.example.spring.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +14,8 @@ import java.util.List;
 public class EmployeeResource {
     private final EmployeeService employeeService;
 
-    public EmployeeResource(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public EmployeeResource(EmployeeServiceImpl employeeServiceImpl) {
+        this.employeeService = employeeServiceImpl;
     }
 
     @PostMapping("/create")
@@ -30,6 +31,12 @@ public class EmployeeResource {
     @GetMapping("/all")
     public ResponseEntity<?> all(){
         List<Employee> employees = employeeService.all();
+        return ResponseEntity.ok(employees);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> filter(){
+        List<Employee> employees = employeeService.getAllByFilter();
         return ResponseEntity.ok(employees);
     }
     @GetMapping("/by-id/{id}")

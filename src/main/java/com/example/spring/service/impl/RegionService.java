@@ -1,4 +1,4 @@
-package com.example.spring.service;
+package com.example.spring.service.impl;
 
 import com.example.spring.domain.District;
 import com.example.spring.domain.Region;

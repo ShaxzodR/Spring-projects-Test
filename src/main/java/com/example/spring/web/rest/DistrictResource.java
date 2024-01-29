@@ -1,14 +1,12 @@
 package com.example.spring.web.rest;
 
 import com.example.spring.domain.District;
-import com.example.spring.domain.Region;
 import com.example.spring.domain.request.ReqDistrict;
-import com.example.spring.service.DistrictService;
+import com.example.spring.service.impl.DistrictService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/districts")

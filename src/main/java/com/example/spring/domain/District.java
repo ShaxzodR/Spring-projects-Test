@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "District")
-public class District implements Serializable     {
+public class District {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,4 +1,4 @@
-package com.example.spring.service;
+package com.example.spring.service.impl;
 
 import com.example.spring.domain.Area;
 import com.example.spring.domain.request.ReqArea;

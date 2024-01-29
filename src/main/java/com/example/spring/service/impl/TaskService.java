@@ -1,4 +1,4 @@
-package com.example.spring.service;
+package com.example.spring.service.impl;
 
 import com.example.spring.domain.Task;
 import com.example.spring.domain.enumation.Position;
@@ -22,10 +22,10 @@ public class TaskService {
     public String createTask(ReqTask reqTask){
         try {
             Task tasks = new Task();
-            tasks.setName(reqTask.getName());
-            tasks.setDeadline(reqTask.getDeadline());
-            tasks.setStatus(Status.ACTIVE);
-            tasks.setPosition(Position.JUNIOR);
+//            tasks.setName(reqTask.getName());
+//            tasks.setDeadline(reqTask.getDeadline());
+//            tasks.setStatus(Status.ACTIVE);
+//            tasks.setPosition(Position.JUNIOR);
             tasksRepository.save(tasks);
             return "Muvoffaqiyatli saqlandi!";
         } catch (Exception e){
@@ -37,10 +37,10 @@ public class TaskService {
         try {
             Task tasks = new Task();
             tasks.setId(reqTask.getId());
-            tasks.setName(reqTask.getName());
-            tasks.setDeadline(reqTask.getDeadline());
+//            tasks.setName(reqTask.getName());
+//            tasks.setDeadline(reqTask.getDeadline());
             tasks.setStatus(Status.ACTIVE);
-            tasks.setPosition(Position.JUNIOR);
+//            tasks.setPosition(Position.JUNIOR);
             tasksRepository.save(tasks);
             return "Muvoffaqiyatli uzgartirildi!";
         } catch (Exception e){

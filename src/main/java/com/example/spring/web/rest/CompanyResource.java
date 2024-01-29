@@ -2,7 +2,7 @@ package com.example.spring.web.rest;
 
 import com.example.spring.domain.Company;
 import com.example.spring.domain.request.ReqCompany;
-import com.example.spring.service.CompanyService;
+import com.example.spring.service.impl.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

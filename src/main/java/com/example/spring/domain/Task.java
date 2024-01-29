@@ -2,94 +2,44 @@ package com.example.spring.domain;
 
 import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.enumation.Status;
+import com.example.spring.domain.templates.BaseEntity;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 @Table(name = "tasks")
-public class Task implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Task extends BaseEntity {
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
-    @Enumerated(EnumType.STRING)
-    private Position position;
+    @Column(name = "text")
+    private String text;
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
     @Column(name = "deadline")
-    private LocalDateTime deadline;
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private Date createdAt;
-    @LastModifiedDate
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    private Date deadline;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee employee;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToOne
+    private Employee createdBy;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToOne
+    private Employee updatedBy;
 
 
-    public Position getPosition() {
-        return position;
-    }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
