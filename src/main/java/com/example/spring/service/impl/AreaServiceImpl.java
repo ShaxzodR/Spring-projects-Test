@@ -37,11 +37,11 @@ public class AreaServiceImpl implements AreaService {
         try {
             if (reqArea.getId()!= null){
                 if (areaRepositry.findById(reqArea.getId()).isPresent()) {
-                    Area area = new Area();
-                    area.setId(reqArea.getId());
-                    area.setName(reqArea.getName());
-                    area.setDistrict(districtRep.findById(reqArea.getDistrict()).orElseThrow(() -> new EntityNotFoundException("Bunaqa tuman topilmadi")));
-                    areaRepositry.save(area);
+                    Area currentArea = areaRepositry.findById(reqArea.getId()).get();
+                    currentArea.setId(reqArea.getId());
+                    currentArea.setName(reqArea.getName());
+                    currentArea.setDistrict(districtRep.findById(reqArea.getDistrict()).orElseThrow(() -> new EntityNotFoundException("Bunaqa tuman topilmadi")));
+                    areaRepositry.save(currentArea);
                     return "Muvoffaqiyatli uzgartirildi!";
                 }else {
                     return "bunday ID li joy topilmadi";

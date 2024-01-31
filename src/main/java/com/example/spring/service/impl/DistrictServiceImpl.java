@@ -25,7 +25,6 @@ public class DistrictServiceImpl implements DistrictService {
         try {
             District district = new District();
             district.setName(reqDistrict.getName());
-//            district.setRegion(regionRepoository.getReferenceById(reqDistrict.getRegionId()));
             district.setRegion(regionRepoository.findById(reqDistrict.getRegionId()).orElseThrow(() -> new EntityNotFoundException(" bunday region Id topilmadi")));
             districtRep.save(district);
             return "Muvoffaqiyatli saqlandi!";
@@ -39,11 +38,10 @@ public class DistrictServiceImpl implements DistrictService {
         try {
             if (reqDistrict.getId() != null) {
                 if (districtRep.findById(reqDistrict.getId()).isPresent()) {
-                    District district = new District();
-                    district.setId(reqDistrict.getId());
-                    district.setName(reqDistrict.getName());
-                    district.setRegion(regionRepoository.findById(reqDistrict.getRegionId()).orElseThrow(() -> new EntityNotFoundException(" bunday region Id topilmadi")));
-                    districtRep.save(district);
+                    District currentDistrict = districtRep.findById(reqDistrict.getId()).get();
+                    currentDistrict.setName(reqDistrict.getName());
+                    currentDistrict.setRegion(regionRepoository.findById(reqDistrict.getRegionId()).orElseThrow(() -> new EntityNotFoundException(" bunday region Id topilmadi")));
+                    districtRep.save(currentDistrict);
                     return "Muvoffaqiyatli uzgartirildi!";
                 } else {
                     return "Bunday tuman bazada topilmadi!";

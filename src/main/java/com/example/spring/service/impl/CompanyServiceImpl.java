@@ -40,11 +40,11 @@ public class CompanyServiceImpl implements CompanyService {
         try {
             if (reqCompany.getAreaId() != null) {
                 if (companyRepository.findById(reqCompany.getAreaId()).isPresent()) {
-                    Company company = new Company();
-                    company.setId(reqCompany.getId());
-                    company.setName(reqCompany.getName());
-                    company.setArea(areaRep.findById(reqCompany.getAreaId()).orElseThrow(() -> new EntityNotFoundException("Area with ID " + reqCompany.getAreaId() + " not found")));
-                    companyRepository.save(company);
+                    Company currentCompany = companyRepository.findById(reqCompany.getId()).get();
+                    currentCompany.setId(reqCompany.getId());
+                    currentCompany.setName(reqCompany.getName());
+                    currentCompany.setArea(areaRep.findById(reqCompany.getAreaId()).orElseThrow(() -> new EntityNotFoundException("Area with ID " + reqCompany.getAreaId() + " not found")));
+                    companyRepository.save(currentCompany);
                     return "Muvoffaqiyatli uzgartirildi!";
                 } else {
                     return " bu id topilmadi";

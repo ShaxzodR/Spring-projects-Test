@@ -34,9 +34,9 @@ public class RegionServiceImpl implements RegionService {
         try {
             if (reqRegion.getId() != null) {
                 if (regionRep.findById(reqRegion.getId()).isPresent()) {
-                    Region region = new Region();
-                    region.setName(reqRegion.getName());
-                    regionRep.save(region);
+                    Region currentRegion = regionRep.findById(reqRegion.getId()).get();
+                    currentRegion.setName(reqRegion.getName());
+                    regionRep.save(currentRegion);
                     return "Muvoffaqiyatli saqlandi!";
                 } else {
                     return "Bunday tuman bazada topilmadi!";
