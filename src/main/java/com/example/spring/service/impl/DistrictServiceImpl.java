@@ -65,11 +65,7 @@ public class DistrictServiceImpl implements DistrictService {
 
     public District findDistrictById(Long id) {
         Optional<District> optionalDistrict = districtRep.findById(id);
-        if (optionalDistrict.isPresent()) {
-            return optionalDistrict.get();
-        } else {
-            return new District();
-        }
+        return optionalDistrict.orElseGet(District::new);
     }
 
     public void delete(Long id) {
