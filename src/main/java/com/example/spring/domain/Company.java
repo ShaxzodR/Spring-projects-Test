@@ -7,9 +7,8 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
-@EqualsAndHashCode(callSuper = true)
+
 @Entity
-@Data
 @Table(name = "company")
 public class Company extends BaseEntity{
 
@@ -22,4 +21,27 @@ public class Company extends BaseEntity{
     @JoinColumn(name = "area_id", referencedColumnName = "id")
     private Area area;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
 }

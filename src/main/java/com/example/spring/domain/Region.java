@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Region")
+@Table(name = "region")
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

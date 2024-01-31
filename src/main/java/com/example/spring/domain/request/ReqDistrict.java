@@ -6,11 +6,6 @@ public class ReqDistrict {
     private String name;
     private Long regionId;
 
-    public ReqDistrict(Long id, String name, Long regionId) {
-        this.id = id;
-        this.name = name;
-        this.regionId = regionId;
-    }
 
     public Long getId() {
         return id;

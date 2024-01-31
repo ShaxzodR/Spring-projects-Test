@@ -13,11 +13,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
 @Table(name = "tasks")
-public class Task extends BaseEntity {
+public class
+Task extends BaseEntity {
 
     @Column(name = "title")
     private String title;
@@ -31,7 +30,8 @@ public class Task extends BaseEntity {
     @Column(name = "deadline")
     private Date deadline;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
     @OneToOne
@@ -40,6 +40,59 @@ public class Task extends BaseEntity {
     @OneToOne
     private Employee updatedBy;
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Employee getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Employee createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Employee getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(Employee updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 }

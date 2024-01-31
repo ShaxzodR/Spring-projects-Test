@@ -1,31 +1,32 @@
 package com.example.spring.service.impl;
 
 import com.example.spring.domain.District;
-import com.example.spring.domain.Region;
 import com.example.spring.domain.request.ReqDistrict;
 import com.example.spring.repository.DistrictRep;
-import com.example.spring.repository.RegionRep;
-import org.springframework.http.ResponseEntity;
+import com.example.spring.repository.RegionRepoository;
+import com.example.spring.service.DistrictService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DistrictService {
+public class DistrictServiceImpl implements DistrictService {
     private final DistrictRep districtRep;
-    private final RegionRep regionRep;
+    private final RegionRepoository regionRepoository;
 
-    public DistrictService(DistrictRep districtRep, RegionRep regionRep) {
+    public DistrictServiceImpl(DistrictRep districtRep, RegionRepoository regionRep) {
         this.districtRep = districtRep;
-        this.regionRep = regionRep;
+        this.regionRepoository = regionRep;
     }
 
     public String createDistrict(ReqDistrict reqDistrict) {
         try {
             District district = new District();
             district.setName(reqDistrict.getName());
-            district.setRegion(regionRep.getReferenceById(reqDistrict.getRegionId()));
+//            district.setRegion(regionRepoository.getReferenceById(reqDistrict.getRegionId()));
+            district.setRegion(regionRepoository.findById(reqDistrict.getRegionId()).orElseThrow(() -> new EntityNotFoundException(" bunday region Id topilmadi")));
             districtRep.save(district);
             return "Muvoffaqiyatli saqlandi!";
         } catch (Exception e) {
@@ -36,12 +37,20 @@ public class DistrictService {
 
     public String updateDistrict(ReqDistrict reqDistrict) {
         try {
-            District district = new District();
-            district.setId(reqDistrict.getId());
-            district.setName(reqDistrict.getName());
-            district.setRegion(regionRep.getReferenceById(reqDistrict.getRegionId()));
-            districtRep.save(district);
-            return "Muvoffaqiyatli uzgartirildi!";
+            if (reqDistrict.getId() != null) {
+                if (districtRep.findById(reqDistrict.getId()).isPresent()) {
+                    District district = new District();
+                    district.setId(reqDistrict.getId());
+                    district.setName(reqDistrict.getName());
+                    district.setRegion(regionRepoository.findById(reqDistrict.getRegionId()).orElseThrow(() -> new EntityNotFoundException(" bunday region Id topilmadi")));
+                    districtRep.save(district);
+                    return "Muvoffaqiyatli uzgartirildi!";
+                } else {
+                    return "Bunday tuman bazada topilmadi!";
+                }
+            }else {
+                return " Tuman tanlanmadi";
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return "Xatolik";

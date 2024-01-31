@@ -2,7 +2,8 @@ package com.example.spring.web.rest;
 
 import com.example.spring.domain.Region;
 import com.example.spring.domain.request.ReqRegion;
-import com.example.spring.service.impl.RegionService;
+import com.example.spring.service.RegionService;
+import com.example.spring.service.impl.RegionServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class RegionResource {
 
     private final RegionService regionService;
 
-    public RegionResource(RegionService regionService) {
+    public RegionResource(RegionServiceImpl regionService) {
         this.regionService = regionService;
     }
     @PostMapping("/create")
@@ -22,7 +23,11 @@ public class RegionResource {
         String response = regionService.createRegion(reqRegion);
         return ResponseEntity.ok(response);
     }
-
+    @PostMapping("/update")
+    public ResponseEntity updateRegion(@RequestBody ReqRegion reqRegion){
+        String response = regionService.updateRegion(reqRegion);
+        return ResponseEntity.ok(response);
+    }
     @GetMapping("/all")
     public ResponseEntity<?> findAll(){
         List<Region> regions=regionService.getAllRegions();

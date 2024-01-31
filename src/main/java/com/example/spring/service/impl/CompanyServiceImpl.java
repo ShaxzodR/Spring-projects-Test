@@ -2,19 +2,21 @@ package com.example.spring.service.impl;
 
 import com.example.spring.domain.Company;
 import com.example.spring.domain.request.ReqCompany;
-import com.example.spring.repository.AreaRep;
+import com.example.spring.repository.AreaRepositry;
 import com.example.spring.repository.CompanyRepository;
+import com.example.spring.service.CompanyService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CompanyService {
+public class CompanyServiceImpl implements CompanyService {
     private final CompanyRepository companyRepository;
-    private final AreaRep areaRep;
+    private final AreaRepositry areaRep;
 
-    public CompanyService(CompanyRepository companyRepository, AreaRep areaRep) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, AreaRepositry areaRep) {
         this.companyRepository = companyRepository;
         this.areaRep = areaRep;
     }
@@ -25,7 +27,7 @@ public class CompanyService {
             Company company = new Company();
             company.setId(reqCompany.getId());
             company.setName(reqCompany.getName());
-            company.setArea(areaRep.getReferenceById(reqCompany.getAreaId()));
+            company.setArea(areaRep.findById(reqCompany.getAreaId()).orElseThrow(() -> new EntityNotFoundException("Area with ID " + reqCompany.getAreaId() + " not found")));
             companyRepository.save(company);
             return "Muvoffaqiyatli saqlandi!";
         } catch (Exception e) {
@@ -36,12 +38,20 @@ public class CompanyService {
 
     public String updateCompany(ReqCompany reqCompany) {
         try {
-            Company company = new Company();
-            company.setId(reqCompany.getId());
-            company.setName(reqCompany.getName());
-            company.setArea(areaRep.getReferenceById(reqCompany.getAreaId()));
-            companyRepository.save(company);
-            return "Muvoffaqiyatli uzgartirildi!";
+            if (reqCompany.getAreaId() != null) {
+                if (companyRepository.findById(reqCompany.getAreaId()).isPresent()) {
+                    Company company = new Company();
+                    company.setId(reqCompany.getId());
+                    company.setName(reqCompany.getName());
+                    company.setArea(areaRep.findById(reqCompany.getAreaId()).orElseThrow(() -> new EntityNotFoundException("Area with ID " + reqCompany.getAreaId() + " not found")));
+                    companyRepository.save(company);
+                    return "Muvoffaqiyatli uzgartirildi!";
+                } else {
+                    return " bu id topilmadi";
+                }
+            } else {
+                return " Xatolik bor qaytadan urinib kuring";
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return "Xatolik";

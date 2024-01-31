@@ -6,8 +6,6 @@ import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.request.ReqEmployee;
 import com.example.spring.repository.CompanyRepository;
 import com.example.spring.repository.EmployeeRepository;
-import com.example.spring.repository.RegionRep;
-import com.example.spring.repository.TasksRepository;
 import com.example.spring.service.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,15 +17,12 @@ import java.util.Optional;
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final CompanyRepository companyRepository;
-    private final RegionRep regionRep;
-    private final TasksRepository tasksRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CompanyRepository companyRepository, RegionRep regionRep, TasksRepository tasksRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CompanyRepository companyRepository) {
         this.employeeRepository = employeeRepository;
         this.companyRepository = companyRepository;
-        this.regionRep = regionRep;
-        this.tasksRepository = tasksRepository;
     }
+
 
     public String createEmployee(ReqEmployee reqEmployee) {
         try {
@@ -81,8 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public List<Employee> all() {
-        List<Employee> all = employeeRepository.findAll();
-        return all;
+        return employeeRepository.findAll();
     }
 
     public Employee byId(Long id) {

@@ -34,7 +34,7 @@ public class EmployeeResource {
         return ResponseEntity.ok(employees);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/filter")
     public ResponseEntity<?> filter(){
         List<Employee> employees = employeeService.getAllByFilter();
         return ResponseEntity.ok(employees);

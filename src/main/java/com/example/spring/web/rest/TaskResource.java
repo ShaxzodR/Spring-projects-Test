@@ -2,7 +2,8 @@ package com.example.spring.web.rest;
 
 import com.example.spring.domain.Task;
 import com.example.spring.domain.request.ReqTask;
-import com.example.spring.service.impl.TaskService;
+import com.example.spring.service.TaskService;
+import com.example.spring.service.impl.TaskServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class TaskResource {
     private final TaskService taskService;
 
-    public TaskResource(TaskService taskService) {
+    public TaskResource(TaskServiceImpl taskService) {
         this.taskService = taskService;
     }
     @PostMapping("/create")

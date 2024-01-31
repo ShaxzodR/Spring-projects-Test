@@ -1,21 +1,20 @@
 package com.example.spring.service.impl;
 
-import com.example.spring.domain.District;
 import com.example.spring.domain.Region;
-import com.example.spring.domain.request.ReqDistrict;
 import com.example.spring.domain.request.ReqRegion;
-import com.example.spring.repository.RegionRep;
+import com.example.spring.repository.RegionRepoository;
+import com.example.spring.service.RegionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RegionService {
+public class RegionServiceImpl implements RegionService {
 
-    private final RegionRep regionRep;
+    private final RegionRepoository regionRep;
 
-    public RegionService(RegionRep regionRep) {
+    public RegionServiceImpl(RegionRepoository regionRep) {
         this.regionRep = regionRep;
     }
 
@@ -25,6 +24,26 @@ public class RegionService {
             region.setName(reqRegion.getName());
             regionRep.save(region);
             return "Muvoffaqiyatli saqlandi!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Xatolik";
+        }
+    }
+
+    public String updateRegion(ReqRegion reqRegion) {
+        try {
+            if (reqRegion.getId() != null) {
+                if (regionRep.findById(reqRegion.getId()).isPresent()) {
+                    Region region = new Region();
+                    region.setName(reqRegion.getName());
+                    regionRep.save(region);
+                    return "Muvoffaqiyatli saqlandi!";
+                } else {
+                    return "Bunday tuman bazada topilmadi!";
+                }
+            } else {
+                return "Viloyat tanlanmadi";
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return "Xatolik";

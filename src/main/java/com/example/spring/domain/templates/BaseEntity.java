@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@Data
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +25,47 @@ public abstract class BaseEntity {
     private Timestamp updatedAt;
 
     private boolean active = true;
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 
+    // Ma'lumotlarni yangilash paytida to'ldiriladi
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

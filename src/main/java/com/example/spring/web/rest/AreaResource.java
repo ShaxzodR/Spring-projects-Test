@@ -2,7 +2,8 @@ package com.example.spring.web.rest;
 
 import com.example.spring.domain.Area;
 import com.example.spring.domain.request.ReqArea;
-import com.example.spring.service.impl.AreaService;
+import com.example.spring.service.AreaService;
+import com.example.spring.service.impl.AreaServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class AreaResource {
     private final AreaService areaService;
 
-    public AreaResource(AreaService areaService) {
+    public AreaResource(AreaServiceImpl areaService) {
         this.areaService = areaService;
     }
     @PostMapping("/create")
