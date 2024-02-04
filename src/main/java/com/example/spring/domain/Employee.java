@@ -16,7 +16,7 @@ public class Employee extends BaseEntity{
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(name = "year_of_birth")
@@ -25,11 +25,10 @@ public class Employee extends BaseEntity{
     @Column(name = "graduated_university")
     private String graduatedUniversity;
 
-    @Column(name = "position")
+    @Enumerated(EnumType.STRING)
     private Position position;
 
     @ManyToOne
-//    @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
 
     public String getFirstName() {

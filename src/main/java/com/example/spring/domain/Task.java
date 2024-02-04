@@ -4,24 +4,17 @@ import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.enumation.Status;
 import com.example.spring.domain.templates.BaseEntity;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "tasks")
-public class
-Task extends BaseEntity {
+@Table(name = "task")
+public class Task extends BaseEntity {
 
     @Column(name = "title")
     private String title;
 
-    @Column(name = "text")
+    @Lob
+    @Column(name = "TEXT")
     private String text;
 
     @Enumerated(EnumType.STRING)

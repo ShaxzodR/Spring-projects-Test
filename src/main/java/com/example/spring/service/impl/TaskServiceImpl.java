@@ -34,7 +34,7 @@ public class TaskServiceImpl implements TaskService {
             if (reqTask.getEmployee() != null)
                 tasks.setEmployee(employeeRepository.findById(reqTask.getEmployee()).orElseThrow(() -> new EntityNotFoundException(" Ishchi topilmadi")));
             if (reqTask.getCreatedBy() != null)
-                tasks.setCreatedBy(employeeRepository.findById(reqTask.getCreatedBy()).orElseThrow(() -> new EntityNotFoundException("xato")));
+                tasks.setCreatedBy(employeeRepository.findById(reqTask.getCreatedBy()).orElseThrow(() -> new EntityNotFoundException("xatolik")));
             if (reqTask.getUpdateBy() != null)
                 tasks.setUpdatedBy(employeeRepository.findById(reqTask.getUpdateBy()).orElseThrow(() -> new EntityNotFoundException("Xaato")));
             tasksRepository.save(tasks);

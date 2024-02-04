@@ -1,5 +1,6 @@
 package com.example.spring.service.impl;
 
+import com.example.spring.domain.Company;
 import com.example.spring.domain.Employee;
 import com.example.spring.domain.enumation.Gender;
 import com.example.spring.domain.enumation.Position;
@@ -8,8 +9,10 @@ import com.example.spring.repository.CompanyRepository;
 import com.example.spring.repository.EmployeeRepository;
 import com.example.spring.service.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,9 +109,38 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public List<Employee> getAllByFilter() {
-        return null;
+    public List<Employee> filter(String firstName,
+                                 String lastName,
+                                 Position position,
+                                 String yearOfBirth,
+                                 Company company) {
+        try {
+            if (employeeRepository != null) {
+                if (firstName != null) {
+                    return employeeRepository.findByFirstName(firstName);
+                } else if (lastName != null) {
+                    return employeeRepository.findByLastName(lastName);
+                }else if (position != null){
+                    return employeeRepository.findByPosition(position);
+                } else if (yearOfBirth!=null) {
+                    return employeeRepository.findByYearOfBirth(yearOfBirth);
+                } else if (company !=null) {
+                    return employeeRepository.findByCompany(company);
+                } else {
+                    return Collections.emptyList();
+                }
+            } else {
+                throw new IllegalStateException("Employee repository is not initialized.");
+            }
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
+
+
+
+
 
     //ismi, familiyasi ,tugilgan yili, positsiyasi,kompaniyasi bo'yicha qidiruv
 }

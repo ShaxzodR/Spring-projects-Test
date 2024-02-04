@@ -1,6 +1,8 @@
 package com.example.spring.service;
 
+import com.example.spring.domain.Company;
 import com.example.spring.domain.Employee;
+import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.request.ReqEmployee;
 
 import java.util.List;
@@ -21,5 +23,5 @@ public interface EmployeeService {
 
     void ActivateStatus(Long id);
 
-    List<Employee> getAllByFilter();
+    List<Employee> filter(String firstName, String lastName, Position position , String yearOfBirth, Company company);
 }
