@@ -12,6 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -109,37 +110,47 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public List<Employee> filter(String firstName,
-                                 String lastName,
-                                 Position position,
-                                 String yearOfBirth,
-                                 Company company) {
-        try {
-            if (employeeRepository != null) {
-                if (firstName != null) {
-                    return employeeRepository.findByFirstName(firstName);
-                } else if (lastName != null) {
-                    return employeeRepository.findByLastName(lastName);
-                }else if (position != null){
-                    return employeeRepository.findByPosition(position);
-                } else if (yearOfBirth!=null) {
-                    return employeeRepository.findByYearOfBirth(yearOfBirth);
-                } else if (company !=null) {
-                    return employeeRepository.findByCompany(company);
-                } else {
-                    return Collections.emptyList();
-                }
-            } else {
-                throw new IllegalStateException("Employee repository is not initialized.");
-            }
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
+    //    public List<Employee> filter(String firstName,
+//                                 String lastName,
+//                                 Position position,
+//                                 String yearOfBirth,
+//                                 Company company) {
+//        try {
+//            if (employeeRepository != null) {
+//                if (firstName != null) {
+//                    return employeeRepository.findByFirstName(firstName);
+//                } else if (lastName != null) {
+//                    return employeeRepository.findByLastName(lastName);
+//                }else if (position != null){
+//                    return employeeRepository.findByPosition(position);
+//                } else if (yearOfBirth!=null) {
+//                    return employeeRepository.findByYearOfBirth(yearOfBirth);
+//                } else if (company !=null) {
+//                    return employeeRepository.findByCompany(company);
+//                } else {
+//                    return Collections.emptyList();
+//                }
+//            } else {
+//                throw new IllegalStateException("Employee repository is not initialized.");
+//            }
+//        } catch (DataAccessException e) {
+//            e.printStackTrace();
+//            return Collections.emptyList();
+//        }
+//    }
+    public List<Employee> filter(String type, String searchName) {
+        List<Employee> employeeList = new ArrayList<>();
+        if (type.equals("firstName")) {
+            employeeList = employeeRepository.findByFirstName(searchName);
+        } else if (type.equals("lastName")) {
+            employeeList = employeeRepository.findByLastName(searchName);
+        } else if (type.equals("age")) {
+            employeeList = employeeRepository.findByYearOfBirth(searchName);
+        } else if (type.equals("position")) {
+            employeeList = employeeRepository.findByPosition(Position.valueOf(searchName));
         }
+        return employeeList;
     }
-
-
-
 
 
     //ismi, familiyasi ,tugilgan yili, positsiyasi,kompaniyasi bo'yicha qidiruv

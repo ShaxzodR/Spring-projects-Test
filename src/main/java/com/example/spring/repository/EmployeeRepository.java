@@ -1,11 +1,9 @@
 package com.example.spring.repository;
 
-import com.example.spring.domain.Company;
 import com.example.spring.domain.Employee;
 import com.example.spring.domain.enumation.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,5 +30,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     @Query("select e from Employee e where e.yearOfBirth like %:yearOfBirth%")
     List<Employee> findByYearOfBirth(String yearOfBirth);
     @Query("select e from Employee e where e.company = :company")
-    List<Employee> findByCompany(Company company);
+    List<Employee> findByCompany(String company);
 }

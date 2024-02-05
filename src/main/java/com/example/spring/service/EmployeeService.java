@@ -23,5 +23,6 @@ public interface EmployeeService {
 
     void ActivateStatus(Long id);
 
-    List<Employee> filter(String firstName, String lastName, Position position , String yearOfBirth, Company company);
+//    List<Employee> filter(String firstName, String lastName, Position position , String yearOfBirth, Company company);
+    List<Employee> filter(String type, String searchName);
 }

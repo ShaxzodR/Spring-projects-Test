@@ -38,13 +38,19 @@ public class EmployeeResource {
         return ResponseEntity.ok(employees);
     }
 
+//    @GetMapping("/filter")
+//    public ResponseEntity<?> filter(@RequestParam(required = false) String firstName,
+//                                    @RequestParam(required = false) String lastName,
+//                                    @RequestParam(required = false) Position position,
+//                                    @RequestParam(required = false) String yearOfBirth,
+//                                    @RequestParam(required = false) Company company) {
+//        List<Employee> employeeList = employeeService.filter(firstName, lastName, position, yearOfBirth, company);
+//        return ResponseEntity.ok(employeeList);
+//    }
+
     @GetMapping("/filter")
-    public ResponseEntity<?> filter(@RequestParam(required = false) String firstName,
-                                    @RequestParam(required = false) String lastName,
-                                    @RequestParam(required = false) Position position,
-                                    @RequestParam(required = false) String yearOfBirth,
-                                    @RequestParam(required = false)Company company) {
-        List<Employee> employeeList = employeeService.filter(firstName, lastName, position, yearOfBirth,company);
+    public ResponseEntity<?> filter(@RequestParam String type, @RequestParam String searchName) {
+        List<Employee> employeeList = employeeService.filter(type, searchName);
         return ResponseEntity.ok(employeeList);
     }
 
