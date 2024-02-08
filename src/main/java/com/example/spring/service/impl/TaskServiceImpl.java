@@ -1,11 +1,14 @@
 package com.example.spring.service.impl;
 
+import com.example.spring.domain.Employee;
 import com.example.spring.domain.Task;
 import com.example.spring.domain.enumation.Status;
 import com.example.spring.domain.request.ReqTask;
+import com.example.spring.exceptions.ResourceNotFoundException;
 import com.example.spring.repository.EmployeeRepository;
 import com.example.spring.repository.TasksRepository;
 import com.example.spring.service.TaskService;
+import com.example.spring.utils.Utils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -22,21 +25,20 @@ public class TaskServiceImpl implements TaskService {
         this.employeeRepository = employeeRepository;
     }
 
-
     public String createTask(ReqTask reqTask) {
         try {
             Task tasks = new Task();
             tasks.setTitle(reqTask.getTitle());
             tasks.setText(reqTask.getText());
             tasks.setDeadline(reqTask.getDeadline());
-            if (reqTask.getStatus() != null)
-                tasks.setStatus(Status.valueOf(reqTask.getStatus()));
+            tasks.setStatus(Status.ACTIVE);
             if (reqTask.getEmployee() != null)
-                tasks.setEmployee(employeeRepository.findById(reqTask.getEmployee()).orElseThrow(() -> new EntityNotFoundException(" Ishchi topilmadi")));
-            if (reqTask.getCreatedBy() != null)
-                tasks.setCreatedBy(employeeRepository.findById(reqTask.getCreatedBy()).orElseThrow(() -> new EntityNotFoundException("xatolik")));
-            if (reqTask.getUpdateBy() != null)
-                tasks.setUpdatedBy(employeeRepository.findById(reqTask.getUpdateBy()).orElseThrow(() -> new EntityNotFoundException("Xaato")));
+                tasks.setEmployee(employeeRepository.findById(reqTask.getEmployee()).orElseThrow(() -> new ResourceNotFoundException("employee")));
+            if (reqTask.getCreatedBy() != null) {
+                Employee createdBy = employeeRepository.findById(reqTask.getCreatedBy()).orElseThrow(() -> new ResourceNotFoundException("employee"));
+                tasks.setCreatedBy(createdBy);
+                tasks.setUpdatedBy(createdBy);
+            }
             tasksRepository.save(tasks);
             return "Muvoffaqiyatli saqlandi!";
         } catch (Exception e) {
@@ -48,25 +50,24 @@ public class TaskServiceImpl implements TaskService {
     public String update(ReqTask reqTask) {
         try {
             if (reqTask.getId() != null) {
-                if (tasksRepository.findById(reqTask.getId()).isPresent()) {
-                    Task currentTask = tasksRepository.findById(reqTask.getId()).get();
+                Employee updatingEmployee = employeeRepository.findById(reqTask.getUpdateBy()).orElseThrow(() -> new ResourceNotFoundException("employee"));
+                Task currentTask = tasksRepository.findById(reqTask.getId()).orElseThrow(() -> new ResourceNotFoundException("task"));
+                if (currentTask.getCreatedBy().getId().equals(updatingEmployee.getId()) || Utils.checkPosition(updatingEmployee.getPosition(), currentTask.getCreatedBy().getPosition())) {
                     currentTask.setTitle(reqTask.getTitle());
                     currentTask.setText(reqTask.getText());
                     currentTask.setDeadline(reqTask.getDeadline());
                     if (reqTask.getStatus() != null)
                         currentTask.setStatus(Status.valueOf(reqTask.getStatus()));
-                    if (reqTask.getEmployee() != null)
-                        currentTask.setEmployee(employeeRepository.findById(reqTask.getEmployee()).orElseThrow(() -> new EntityNotFoundException(" Ishchi topilmadi")));
-                    if (reqTask.getCreatedBy() != null)
-                        currentTask.setCreatedBy(employeeRepository.findById(reqTask.getCreatedBy()).orElseThrow(() -> new EntityNotFoundException("xato")));
+                    if (reqTask.getEmployee() != null || !reqTask.getEmployee().equals(currentTask.getEmployee().getId()))
+                        currentTask.setEmployee(employeeRepository.findById(reqTask.getEmployee()).orElseThrow(() -> new ResourceNotFoundException("employee")));
                     if (reqTask.getUpdateBy() != null)
-                        currentTask.setUpdatedBy(employeeRepository.findById(reqTask.getUpdateBy()).orElseThrow(() -> new EntityNotFoundException("Xaato")));
+                        currentTask.setUpdatedBy(updatingEmployee);
                     tasksRepository.save(currentTask);
                     return "Muvoffaqiyatli saqlandi!";
                 } else {
                     return "Bunday topshiriq bazaga kiritilmagan";
                 }
-            }else {
+            } else {
                 return "Topshiriq tanlanmadi";
             }
         } catch (Exception e) {
