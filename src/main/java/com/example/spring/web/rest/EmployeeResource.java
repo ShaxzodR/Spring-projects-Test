@@ -1,8 +1,6 @@
 package com.example.spring.web.rest;
 
-import com.example.spring.domain.Company;
 import com.example.spring.domain.Employee;
-import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.request.ReqEmployee;
 import com.example.spring.service.impl.EmployeeServiceImpl;
 import com.example.spring.service.EmployeeService;
@@ -43,7 +41,7 @@ public class EmployeeResource {
 //                                    @RequestParam(required = false) String lastName,
 //                                    @RequestParam(required = false) Position position,
 //                                    @RequestParam(required = false) String yearOfBirth,
-//                                    @RequestParam(required = false) Company company) {
+//                                    @RequestParam(required = false) Department company) {
 //        List<Employee> employeeList = employeeService.filter(firstName, lastName, position, yearOfBirth, company);
 //        return ResponseEntity.ok(employeeList);
 //    }

@@ -21,7 +21,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 //                                              String lastName,
 //                                              Position position,
 //                                              String yearOfBirth,
-//                                              Company company);
+//                                              Department company);
 
     @Query("select e from Employee e where e.lastName like %:lastName%")
     List<Employee> findByLastName(String lastName);
@@ -29,6 +29,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     List<Employee> findByPosition(Position position);
     @Query("select e from Employee e where e.yearOfBirth like %:yearOfBirth%")
     List<Employee> findByYearOfBirth(String yearOfBirth);
-    @Query("select e from Employee e where e.company = :company")
-    List<Employee> findByCompany(String company);
+//    @Query("select e from Employee e where e.department = :department")
+//    List<Employee> findByDepartment(String company);
 }

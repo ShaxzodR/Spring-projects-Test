@@ -29,7 +29,7 @@ public class Employee extends BaseEntity{
     private Position position;
 
     @ManyToOne
-    private Company company;
+    private Department department;
 
     public String getFirstName() {
         return firstName;
@@ -79,11 +79,11 @@ public class Employee extends BaseEntity{
         this.position = position;
     }
 
-    public Company getCompany() {
-        return company;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

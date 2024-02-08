@@ -1,6 +1,7 @@
 package com.example.spring.web.rest;
 
 import com.example.spring.domain.Task;
+import com.example.spring.domain.request.ReqEmployee;
 import com.example.spring.domain.request.ReqTask;
 import com.example.spring.service.TaskService;
 import com.example.spring.service.impl.TaskServiceImpl;
@@ -41,6 +42,26 @@ public class TaskResource {
     public ResponseEntity<?> delate(@PathVariable Long id){
         taskService.delate(id);
         return ResponseEntity.ok("O'chirildi");
+    }
+    @GetMapping("/active/{id}")
+    public ResponseEntity<?> active(@PathVariable Long id){
+        taskService.activeStatus(id);
+        return ResponseEntity.ok("Aktiv holatga utkazildi");
+    }
+    @GetMapping("/inactive/{id}")
+    public ResponseEntity<?> inActive(@PathVariable Long id){
+        taskService.inActiveStatus(id);
+        return ResponseEntity.ok("Aktiv holatga utkazilmadi");
+    }
+    @GetMapping("/taskCount/{id}")
+    public ResponseEntity<?> taskCount(@PathVariable Long id){
+        Long task = taskService.tasksL(id);
+        return ResponseEntity.ok("task lar soni="+task);
+    }
+    @GetMapping("/findE/{id}")
+    public ResponseEntity<?> findOllByEmployeeId(@PathVariable Long id){
+        List<Task> task = taskService.findAllByEmployeeId(id);
+        return ResponseEntity.ok(task);
     }
 
 

@@ -2,15 +2,11 @@ package com.example.spring.domain;
 
 import com.example.spring.domain.templates.BaseEntity;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
 
 
 @Entity
-@Table(name = "company")
-public class Company extends BaseEntity{
+@Table(name = "department")
+public class Department extends BaseEntity{
 
     @Column(name = "name")
     private String name;

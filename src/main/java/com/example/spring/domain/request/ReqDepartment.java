@@ -1,6 +1,6 @@
 package com.example.spring.domain.request;
 
-public class ReqCompany {
+public class ReqDepartment {
     private Long id;
     private String name;
     private String address;

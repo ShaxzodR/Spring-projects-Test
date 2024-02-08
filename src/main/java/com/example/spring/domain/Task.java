@@ -13,8 +13,7 @@ public class Task extends BaseEntity {
     @Column(name = "title")
     private String title;
 
-    @Lob
-    @Column(name = "TEXT")
+    @Column(name = "text")
     private String text;
 
     @Enumerated(EnumType.STRING)

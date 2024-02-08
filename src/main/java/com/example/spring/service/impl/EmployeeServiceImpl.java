@@ -1,28 +1,27 @@
 package com.example.spring.service.impl;
 
-import com.example.spring.domain.Company;
 import com.example.spring.domain.Employee;
+import com.example.spring.domain.Task;
 import com.example.spring.domain.enumation.Gender;
 import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.request.ReqEmployee;
-import com.example.spring.repository.CompanyRepository;
+import com.example.spring.repository.DepartmentRepository;
 import com.example.spring.repository.EmployeeRepository;
 import com.example.spring.service.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final CompanyRepository companyRepository;
+    private final DepartmentRepository companyRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CompanyRepository companyRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository companyRepository) {
         this.employeeRepository = employeeRepository;
         this.companyRepository = companyRepository;
     }
@@ -36,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setGender(reqEmployee.getGender() == 1 ? Gender.MALE : reqEmployee.getGender() == 2 ? Gender.FEMALE : Gender.DEFAULT);
             employee.setYearOfBirth(String.valueOf(reqEmployee.getYearOfBirth()));
             employee.setGraduatedUniversity(reqEmployee.getGraduatedUniversity());
-            employee.setCompany(companyRepository.findById(reqEmployee.getCompanyId()).orElseThrow(() -> new EntityNotFoundException("Kompaniya topilmadi!")));
+            employee.setDepartment(companyRepository.findById(reqEmployee.getCompanyId()).orElseThrow(() -> new EntityNotFoundException("Kompaniya topilmadi!")));
             if (reqEmployee.getPosition() != null) {
                 employee.setPosition(Position.valueOf(reqEmployee.getPosition()));
             } else {
@@ -61,10 +60,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                     if (reqEmployee.getPosition() != null)
                         currentEmployee.setPosition(Position.valueOf(reqEmployee.getPosition()));
                     if (reqEmployee.getCompanyId() != null)
-                        currentEmployee.setCompany(companyRepository.findById(reqEmployee.getCompanyId()).orElseThrow(() -> new EntityNotFoundException("Kompaniya topilmadi!")));
+                        currentEmployee.setDepartment(companyRepository.findById(reqEmployee.getCompanyId()).orElseThrow(() -> new EntityNotFoundException("Kompaniya topilmadi!")));
                     currentEmployee.setYearOfBirth(String.valueOf(reqEmployee.getYearOfBirth()));
                     currentEmployee.setGraduatedUniversity(reqEmployee.getGraduatedUniversity());
-                    currentEmployee.setCompany(companyRepository.getReferenceById(reqEmployee.getCompanyId()));
+                    currentEmployee.setDepartment(companyRepository.getReferenceById(reqEmployee.getCompanyId()));
                     employeeRepository.save(currentEmployee);
                     return "Muvoffaqqiyatli uzgartirildi";
                 } else {
@@ -110,11 +109,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(employee);
     }
 
+
+
     //    public List<Employee> filter(String firstName,
 //                                 String lastName,
 //                                 Position position,
 //                                 String yearOfBirth,
-//                                 Company company) {
+//                                 Department company) {
 //        try {
 //            if (employeeRepository != null) {
 //                if (firstName != null) {
