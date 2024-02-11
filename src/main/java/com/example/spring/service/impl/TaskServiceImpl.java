@@ -12,6 +12,7 @@ import com.example.spring.utils.Utils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -116,7 +117,19 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findAllByEmployeeId(Long id){
         return tasksRepository.findAllByEmployeeId(id);
     }
-
+public List<Task> filter(String type,String searchName){
+        List<Task> tasks = new ArrayList<>();
+        if (type.equals("title")){
+            tasks = tasksRepository.findByTitle(searchName);
+        } else if (type.equals("text")) {
+            tasks = tasksRepository.findByText(searchName);
+        } else if (type.equals("deadLine")){
+            tasks = tasksRepository.findByDeadline(Date.valueOf(searchName));
+        } else if ((type.equals("status"))){
+            tasks = tasksRepository.findByStatus(Status.valueOf(searchName));
+        }
+        return tasks;
+}
 
 
 

@@ -15,4 +15,5 @@ public interface TaskService {
      void activeStatus(Long id);
      Long tasksL(Long id);
      List<Task> findAllByEmployeeId(Long id);
+     List<Task> filter(String type,String searchName);
 }

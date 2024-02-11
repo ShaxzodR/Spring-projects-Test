@@ -21,7 +21,7 @@ public interface TasksRepository extends JpaRepository<Task,Long> {
     @Query("select t from Task  t where t.text=:text")
     List<Task> findByText(String text);
     @Query("select t from Task  t where t.deadline=:deadline")
-    List<Task> findByDeadline(Date deadline);
+    List<Task> findByDeadline(@Param("deadline") Date deadline);
     @Query("select t from Task  t where t.status=:status")
     List<Task> findByStatus(Status status);
 

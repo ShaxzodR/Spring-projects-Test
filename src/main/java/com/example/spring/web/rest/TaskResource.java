@@ -63,6 +63,11 @@ public class TaskResource {
         List<Task> task = taskService.findAllByEmployeeId(id);
         return ResponseEntity.ok(task);
     }
+    @GetMapping("/filter")
+    public ResponseEntity<?> filter(@RequestParam String type,@RequestParam String searchName){
+        List<Task> task = taskService.filter(type,searchName);
+        return ResponseEntity.ok(task);
+    }
 
 
 }
