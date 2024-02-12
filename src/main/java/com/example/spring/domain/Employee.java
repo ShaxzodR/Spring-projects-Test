@@ -4,9 +4,13 @@ import com.example.spring.domain.enumation.Gender;
 import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.templates.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 @Table(name = "employee")
 public class Employee extends BaseEntity{
 
@@ -31,59 +35,4 @@ public class Employee extends BaseEntity{
     @ManyToOne
     private Department department;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public String getYearOfBirth() {
-        return yearOfBirth;
-    }
-
-    public void setYearOfBirth(String yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
-    }
-
-    public String getGraduatedUniversity() {
-        return graduatedUniversity;
-    }
-
-    public void setGraduatedUniversity(String graduatedUniversity) {
-        this.graduatedUniversity = graduatedUniversity;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
 }

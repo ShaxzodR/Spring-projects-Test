@@ -1,11 +1,13 @@
 package com.example.spring.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "District")
 public class District {
     @Id
@@ -17,27 +19,4 @@ public class District {
     @JoinColumn(name = "region_id", referencedColumnName = "id")
     private Region region;
 
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }
