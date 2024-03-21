@@ -111,26 +111,77 @@ public class TaskServiceImpl implements TaskService {
         task.setActive(false);
         tasksRepository.save(task);
     }
-    public Long tasksL(Long id){
+
+    public Long tasksL(Long id) {
         return tasksRepository.countTasksByEmployeeId(id);
     }
-    public List<Task> findAllByEmployeeId(Long id){
+
+    public List<Task> findAllByEmployeeId(Long id) {
         return tasksRepository.findAllByEmployeeId(id);
     }
-public List<Task> filter(String type,String searchName){
-        List<Task> tasks = new ArrayList<>();
-        if (type.equals("title")){
-            tasks = tasksRepository.findByTitle(searchName);
-        } else if (type.equals("text")) {
-            tasks = tasksRepository.findByText(searchName);
-        } else if (type.equals("deadLine")){
-            tasks = tasksRepository.findByDeadline(Date.valueOf(searchName));
-        } else if ((type.equals("status"))){
-            tasks = tasksRepository.findByStatus(Status.valueOf(searchName));
-        }
-        return tasks;
-}
 
+    public List<Task> filter(String type, String searchName) {
+        List<Task> tasks = new ArrayList<>();
+            if (type.equals("title")){
+                tasks = tasksRepository.findByTitle(searchName);
+            } else if (type.equals("text")) {
+                tasks = tasksRepository.findByText(searchName);
+            } else if (type.equals("deadLine")) {
+                tasks=tasksRepository.findByDeadline(Date.valueOf(searchName));
+            } else if (type.equals("status")) {
+                tasks =tasksRepository.findByStatus(Status.valueOf(searchName));
+            }
+            return tasks;
+    }
+
+
+//    public List<Task> filter(String type, String searchName) {
+//        List<Task> tasks = new ArrayList<>();
+//        if (type != null && searchName != null) {
+//            if (type.equals("title")) {
+//                tasks = tasksRepository.findByTitle(searchName);
+//            } else if (type.equals("text")) {
+//                tasks = tasksRepository.findByText(searchName);
+//            } else if (type.equals("deadLine")) {
+//                try {
+//                    Date deadline = Date.valueOf(searchName);
+//                    tasks = tasksRepository.findByDeadline(deadline);
+//                } catch (IllegalArgumentException e) {
+//                    System.out.println("Invalid date format");
+//                }
+//            } else if (type.equals("status")) {
+//                try {
+//                    Status status = Status.valueOf(searchName);
+//                    tasks = tasksRepository.findByStatus(status);
+//                } catch (IllegalArgumentException e) {
+//                    System.out.println("Invalid status value");
+//                }
+//            }
+//        }
+//        return tasks;
+//    }
+
+
+//    public List<Task> filter(String type, String searchName) {
+//        List<Task> tasks = new ArrayList<>();
+//        switch (type) {
+//            case "title":
+//                tasks = tasksRepository.findByTitle(searchName);
+//                break;
+//            case "text":
+//                tasks = tasksRepository.findByText(searchName);
+//                break;
+//            case "deadLine":
+//                tasks = tasksRepository.findByDeadline(Date.valueOf(searchName));
+//                break;
+//            case "status":
+//                tasks = tasksRepository.findByStatus(Status.valueOf(searchName));
+//                break;
+//            default:
+//                System.out.println("Invalid type");
+//        }
+//        return tasks;
+//    }
 
 
 }

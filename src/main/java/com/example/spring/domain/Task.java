@@ -1,5 +1,6 @@
 package com.example.spring.domain;
 
+import com.example.spring.domain.enumation.Position;
 import com.example.spring.domain.enumation.Status;
 import com.example.spring.domain.templates.BaseEntity;
 import jakarta.persistence.*;
@@ -30,10 +31,11 @@ public class Task extends BaseEntity {
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
-    @ManyToOne
+    @OneToOne
     private Employee createdBy;
 
-    @ManyToOne
+    @OneToOne
     private Employee updatedBy;
+
 
 }

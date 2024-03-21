@@ -14,7 +14,5 @@ public class ReqTask {
     private Long employee;
     private Long createdBy;
     private Long updateBy;
-
-
 }
 
